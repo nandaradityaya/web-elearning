@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('course_keypoints', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug');
-            $table->string('icon');
-            $table->softDeletes(); // column deleted_at supaya data yg di hapus tidak hilang permanen dari DB
+            $table->foreignId('course_id')->constrained()->onDelete('cascade');
+            $table->softDeletes(); // deleted_at
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('course_keypoints');
     }
 };
