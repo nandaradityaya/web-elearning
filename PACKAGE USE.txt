@@ -1,0 +1,3 @@
+PACKAGE USE:
+- Laravel Breeze: untuk pembuatan fitur login, registration, reset password, dll
+- Laravel Spatie: untuk pembagian role
