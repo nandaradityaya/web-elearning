@@ -1,3 +1,16 @@
 PACKAGE USE:
 - Laravel Breeze: untuk pembuatan fitur login, registration, reset password, dll
 - Laravel Spatie: untuk pembagian role
+
+
+jalanin npm run dev dan php artisan serve agar tailwind cssnya work
+
+perintah artisan:
+- jalanin web: php artisan serve
+- membuat model, controller, & resourceful route: php artisan make:model CourseVideo -mcr
+- membuat controller: php artisan make:controller FrontController
+- reset DB: php artisan migrate:fresh
+- membuat seeder: php artisan make:seeder RolePermissionSeeder
+- Jalanin Seeder: php artisan migrate:fresh --seed
+- munculin image public : php artisan storage:link
+- php artisan make:request StoreCategoryRequest

@@ -46,11 +46,12 @@ class RegisteredUserController extends Controller
             $avatarPath = 'images/avatar-default.png'; // default image jika tdk ada image dr user
         }
 
+        // jalankan model User dan jalankan perintah create
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'occupation' => $request->occupation,
-            'avatar' => $request->avatarPath,
+            'avatar' => $avatarPath, // tidak usah menggunakan request karna sudah di handle di atas
             'password' => Hash::make($request->password),
         ]);
 
