@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -75,14 +76,33 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         //
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
         //
+        DB::transaction(function () use ($request, $category){
+
+            // validasinya ada di form request tersendiri di StoreCategoryRequest.php
+            $validated = $request->validated();
+
+            if($request->hasFile('icon')) {
+                // ambil pathnya dan simpan dalam folder icons dan simpan secara public
+                $iconPath = $request->file('icon')->store('icons', 'public'); 
+                $validated['icon'] = $iconPath; // gunakan ini agar tidak private (urlnya harus dari public)
+            }
+
+            $validated['slug'] = Str::slug($validated['name']);
+            // gunakan slug agar urlnya dari web design menjadi web-design
+
+            $category->update($validated); // update datanya
+        });
+
+        return redirect()->route('admin.categories.index');
     }
 
     /**
@@ -91,5 +111,17 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //
+        DB::beginTransaction();
+
+        try {
+            $category->delete(); // ambil category mana yg di delete
+            DB::commit(); // commit deletenya
+
+            return redirect()->route('admin.categories.index');
+            
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('admin.categories.index')->with('error', 'something error'); // balikin ke index errornya dan munculkan pesan something error
+        }
     }
 }
