@@ -12,18 +12,18 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-10 flex flex-col gap-y-5">
                 <div class="item-card flex flex-row gap-y-10 justify-between items-center">
                     <div class="flex flex-row items-center gap-x-3">
-                        <img src="https://images.unsplash.com/photo-1552196563-55cd4e45efb3?q=80&w=3426&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="rounded-2xl object-cover w-[200px] h-[150px]">
+                        <img src="{{ Storage::url($course->thumbnail) }}" alt="" class="rounded-2xl object-cover w-[200px] h-[150px]">
                         <div class="flex flex-col">
-                            <h3 class="text-indigo-950 text-xl font-bold">Diet For Beginners in 2024</h3>
-                            <p class="text-slate-500 text-sm">Cardio</p>
+                            <h3 class="text-indigo-950 text-xl font-bold">{{ $course->name }}</h3>
+                            <p class="text-slate-500 text-sm">{{ $course->category->name }}</p>
                         </div>
                     </div>
                     <div class="flex flex-col">
                         <p class="text-slate-500 text-sm">Students</p>
-                        <h3 class="text-indigo-950 text-xl font-bold">183409</h3>
+                        <h3 class="text-indigo-950 text-xl font-bold">{{ $course->students->count() }}</h3>
                     </div>
                     <div class="flex flex-row items-center gap-x-3">
-                        <a href="#" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
+                        <a href="{{ route('admin.courses.edit', $course) }}" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
                             Edit Course
                         </a>
                         <form action="#" method="POST">
@@ -41,20 +41,22 @@
                 <div class="flex flex-row justify-between items-center">
                     <div class="flex flex-col">
                         <h3 class="text-indigo-950 text-xl font-bold">Course Videos</h3>
-                        <p class="text-slate-500 text-sm">1893 Total Videos</p>
+                        <p class="text-slate-500 text-sm">{{ $course->course_videos->count() }} Total Videos</p>
                     </div>
-                    <a href="#" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
+
+                    {{-- tambahkan parameter $course->id agar terdeteksi kelas dengan id mana yg ingin di tambah videonya --}}
+                    <a href="{{ route('admin.course.add_video', $course->id) }}" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
                         Add New Video
                     </a>
                 </div>
 
-                @for($i = 0; $i < 10; $i++)
+                @forelse($course->course_videos as $video)
                 <div class="item-card flex flex-row gap-y-10 justify-between items-center">
                     <div class="flex flex-row items-center gap-x-3">
                         <iframe width="560" class="rounded-2xl object-cover w-[120px] h-[90px]" height="315" src="https://www.youtube-nocookie.com/embed/xsg9BDiwiJE?si=vKiuNGVjDDDJWOU3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         <div class="flex flex-col">
-                            <h3 class="text-indigo-950 text-xl font-bold">Install Figma Mac OS</h3>
-                            <p class="text-slate-500 text-sm">Mastering UI UX 101</p>
+                            <h3 class="text-indigo-950 text-xl font-bold">{{ $video->name }}</h3>
+                            <p class="text-slate-500 text-sm">{{ $video->course->name }}</p>
                         </div>
                     </div>
 
@@ -63,7 +65,7 @@
                         <a href="#" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
                             Edit Video
                         </a>
-                        <form action="#" method="POST">
+                        <form action="{{ route('admin.courses.destroy', $course) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="font-bold py-4 px-6 bg-red-700 text-white rounded-full">
@@ -77,7 +79,8 @@
                     </div>
                     
                 </div>
-                @endfor
+                @empty
+                @endforelse
                 
             </div>
         </div>

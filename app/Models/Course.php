@@ -33,7 +33,7 @@ class Course extends Model
     }
 
     public function course_keypoints() {
-        return $this->belongsTo(CourseKeypoint::class); 
+        return $this->hasMany(CourseKeypoint::class); 
     }
 
     // konsep many to many sehingga harus memiliki pivot table atau table jembatan antara users -> course_students -> courses

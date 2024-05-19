@@ -5,6 +5,18 @@ PACKAGE USE:
 
 jalanin npm run dev dan php artisan serve agar tailwind cssnya work
 
+Role:
+nanda@owner.com
+rahasia
+
+students:
+arkhan@gmail.com
+rahasia123
+
+teahcer:
+legino@gmail.com
+rahasia123
+
 perintah artisan:
 - jalanin web: php artisan serve
 - membuat model, controller, & resourceful route: php artisan make:model CourseVideo -mcr
@@ -14,3 +26,4 @@ perintah artisan:
 - Jalanin Seeder: php artisan migrate:fresh --seed
 - munculin image public : php artisan storage:link
 - php artisan make:request StoreCategoryRequest
+- php artisan make:migration add_softdeletes_to_course_videos_table --table=course_videos : menambahkan field baru utk satu table tanpa migrate fresh
