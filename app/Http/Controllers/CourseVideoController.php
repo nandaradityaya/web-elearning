@@ -64,14 +64,26 @@ class CourseVideoController extends Controller
     public function edit(CourseVideo $courseVideo)
     {
         //
+        return view('admin.course_videos.edit', compact('courseVideo'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CourseVideo $courseVideo)
+    public function update(StoreCourseVideoRequest $request, CourseVideo $courseVideo)
     {
         //
+        // ambil $request dan ambil $course untuk mengambil data kelas yg akan di update
+        DB::transaction(function () use ($request, $courseVideo){
+
+            // validasinya ada di form request tersendiri di UpdateCourseRequest.php
+            $validated = $request->validated();
+
+            $courseVideo->update($validated);
+        });
+
+        return redirect()->route('admin.courses.show', $courseVideo->course_id);
+
     }
 
     /**
@@ -80,5 +92,17 @@ class CourseVideoController extends Controller
     public function destroy(CourseVideo $courseVideo)
     {
         //
+        DB::beginTransaction();
+
+        try {
+            $courseVideo->delete(); // ambil course mana yg di delete
+            DB::commit(); // commit deletenya
+
+            return redirect()->route('admin.courses.show', $courseVideo->course_id);
+            
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('admin.courses.show', $courseVideo->course_id)->with('error', 'something error'); // balikin ke index errornya dan munculkan pesan something error
+        }
     }
 }
