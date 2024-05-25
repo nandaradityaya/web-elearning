@@ -13,7 +13,7 @@ class SubscribeTransaction extends Model
     protected $fillable = [
         'total_ammount',
         'is_paid',
-        'user_paid',
+        'user_id',
         'proof',
         'subscription_start_date',
     ];
