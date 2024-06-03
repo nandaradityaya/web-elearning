@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout/store', [FrontController::class, 'checkout_store'])->name('front.checkout.store')->middleware('role:student');; // post untuk submit data bukti pembayaran -> berikan middleware role:student agar yg bisa checkout hanya student
 
     // domain.com/learning/100/5 = belajar React JS
-    Route::post('/learning/{course}/{courseVideoId}', [FrontController::class, 'learning'])->name('front.learning')->middleware('role:student|teacher|owner');
+    Route::get('/learning/{course}/{courseVideoId}', [FrontController::class, 'learning'])->name('front.learning')->middleware('role:student|teacher|owner');
 
     Route::prefix('admin')->name('admin.')->group(function () {
         // resource itu berarti sudah ada semua, tidak perlu get, patch, delete, dll. semua sudah ada di controller. cth: admin.categories.index

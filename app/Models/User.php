@@ -56,7 +56,7 @@ class User extends Authenticatable
     }
 
     // pengecekan sudah subscribe atau belum
-    public function subscribe_transaction() {
+    public function subscribe_transactions() {
         // hasMany karna satu pengguna bisa berlangganan berkali2
         return $this->hasMany(SubscribeTransaction::class);
     }

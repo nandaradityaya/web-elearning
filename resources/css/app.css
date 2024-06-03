@@ -1,3 +1,49 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    .gradient-text-hero {
+        background-clip: text !important;
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        background: linear-gradient(
+            90deg,
+            #71d0f7 0%,
+            rgba(255, 255, 255, 0.76) 48.44%,
+            #e6834a 100%
+        );
+    }
+
+    .gradient-badge {
+        background: linear-gradient(
+            180deg,
+            #ff692e 0%,
+            #fff5f2 0.01%,
+            #ffd8c8 100%
+        );
+    }
+
+    .pause-animate {
+        animation-play-state: paused;
+    }
+
+    .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: all 300ms ease-in-out;
+    }
+
+    /* Used For Chrome, Opera and Safari */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    /* Used For Firefox: */
+    .no-scrollbar {
+        scrollbar-width: none;
+    }
+    /* Used For MS Edge and IE: */
+    .no-scrollbar {
+        -ms-overflow-style: none;
+    }
+}
