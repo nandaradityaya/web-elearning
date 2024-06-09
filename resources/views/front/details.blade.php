@@ -14,6 +14,7 @@
     />
 </head>
 <body class="text-black font-poppins pt-10 pb-[50px]">
+    {{-- solve problem pada tailwind untuk background image --}}
     <div style="background-image: url('{{asset('assets/background/Hero-Banner.png')}}');" id="hero-section" class="max-w-[1200px] mx-auto w-full h-[393px] flex flex-col gap-10 pb-[50px] bg-center bg-no-repeat bg-cover rounded-[32px] overflow-hidden absolute transform -translate-x-1/2 left-1/2">
         <nav class="flex justify-between items-center pt-6 px-[50px]">
             <a href="index.html">
